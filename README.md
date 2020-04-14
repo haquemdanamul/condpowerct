@@ -20,3 +20,6 @@ It is important to note that conditional power at the beginning of the study bef
 collected is equal to the unconditional power. Unconditional power is the probability of achieving 
 a significant result at a pre-specified alpha under a pre-specified alternative treatment effect as
 calculated at the beginning of a trial.
+
+Please also visit the link to calculate the sample size and other parameters of design stage and interim stage.
+https://haquemdanamul.shinyapps.io/update_session/
