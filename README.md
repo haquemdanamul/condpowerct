@@ -1,6 +1,6 @@
 This package will calculate conditional power for stopping a trial for futility or stop for efficacy. 
 It is possible to calculate the conditional power of the study to reject the null hypothesis given the 
-current results obtained from gsDesign (Group sequential designs). gsDesign gives the opportunity to 
+current results obtained from \code{\link{gsDesign()}} (Group sequential designs). gsDesign gives the opportunity to 
 stop the study early for efficacy or stop for futility. Stop for efficacy means faster access to the 
 new treatment during an interim analysis. On the other hand, stop for futility means unknown true effect 
 is far away from the anticipated effect under the alternative hypothesis. As a result it saves time and 
