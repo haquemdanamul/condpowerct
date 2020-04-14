@@ -1,0 +1,93 @@
+
+#' calculates conditional power for Continuous or Binary Endpoint
+#'
+#' @param n Sample size obtained at Interim stage/look
+#' @param N Total Sample size at Final Stage/look
+#' @param delta Observed Treatment Effect at Interim which needs to calculate Test Statistic (Z)
+#' @param se Standard Error for Mean(delta) difference
+#' @param delta_assumed Assumed treatment effect for future/remaining patients
+#' @param zfinal Final stage/Look Z-Statistic value which was obtained while planning analysis in Design Stage
+#'
+#' @return conditional power for specified (continuous or binary) endpoint
+#'
+#' @export
+#'
+#' @description This package will calculate conditional power for stopping a trial for futility or stop for efficacy. It is possible to calculate the conditional power of the study to reject the null hypothesis given the current results obtained from gsDesign (Group sequential designs). An user has to first calculate the sample size for any types of endpoint: Continuous, Binary and Time-to-Event based on R-package gsDesign. Then using this results one can calculate the Conditional power, which is one of the tools, when computed over a range of alternatives, can be of guidance in
+#' deciding whether to continue the study given those available information.
+#' @author Mohammad Anamul Haque, Tomasz Burzykowski, Emmanuel Quinaux and Nahid Sultana
+#' @examples continuous(n=10, N=25, delta=1, se=2, delta_assumed=1, zfinal=1.97) #for Continous endpoint
+#' @examples continuous(n=200, N=294, delta=0.15, se=0.07, delta_assumed=0.20, zfinal=1.99) #for binary endpoint
+#'
+#' @references Jennison, C. and Turnbull, B.W. (2005). Group Sequential Methods with Applications to Clinical Trials. Boca Raton: Chapman and Hall.
+#' @references Chang, M. (2015). Introductory Adaptive Trial Designs: A Practical Guide with R. CRC press, Chapman and Hall.
+
+continuous<-function(n, N, delta, se, delta_assumed, zfinal){
+
+  delta1 <- delta_assumed/(se*sqrt(n))
+  se=se
+  zk=delta/se
+  A=if (zfinal<=0) {-zfinal} else zfinal
+  diff=N-n
+  cnorm=pnorm(((zk*sqrt(n))-(A*sqrt(N))+(diff*delta1))/sqrt(diff))
+
+  return(cnorm)
+
+     }
+
+
+#' calculates conditional power for Time-to-event Endpoint
+#'
+#' @param ek Number of events obtained at interim stage/look
+#' @param E Number of events at final stage/look
+#' @param observedHR observedHR Observed Hazard Ratio at Interim stage/look
+#' @param se_survival Standard Error of log(Hazard Ratio)
+#' @param futureHR Assumed Hazard Ratio for Future Patients
+#' @param zfinalsurv Final stage/Look Z-Statistic value which was obtained while planning analysis in Design Stage
+#'
+#' @return conditional power for time-to-event endpoint
+#'
+#' @export
+#'
+#' @examples survival(ek=300, E=377, observedHR=0.75, se_survival=0.164, futureHR=0.80, zfinalsurv=2.16)
+#'
+#' @description This package will calculate conditional power for stopping a trial for futility or stop for efficacy. It is possible to calculate the conditional power of the study to reject the null hypothesis given the current results obtained from gsDesign (Group sequential designs). An user has to first calculate the sample size for any types of endpoint: Continuous, Binary and Time-to-Event based on R-package gsDesign. Then using this results one can calculate the Conditional power, which is one of the tools, when computed over a range of alternatives, can be of guidance in
+#' deciding whether to continue the study given those available information.
+#' @author Mohammad Anamul Haque, Tomasz Burzykowski, Emmanuel Quinaux and Nahid Sultana
+#' @references Jennison, C. and Turnbull, B.W. (2005). Group Sequential Methods with Applications to Clinical Trials. Boca Raton: Chapman and Hall.
+#' @references Chang, M. (2015). Introductory Adaptive Trial Designs: A Practical Guide with R. CRC press, Chapman and Hall.
+
+
+
+survival<-function(ek, E, observedHR, se_survival, futureHR, zfinalsurv){
+
+  delta=log(observedHR)
+  se=se_survival
+  zk=delta/se
+  delta1=log(futureHR)
+  delta1surv<- delta1/(se*sqrt(ek))
+  A=if (zfinalsurv<=0) {-zfinalsurv} else zfinalsurv
+  diff=E-ek
+  time_event=pnorm(((-zk*sqrt(ek))-(A*sqrt(E))-(diff*delta1surv))/sqrt(diff))
+
+  return(time_event)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+continuous(n=10, N=25, delta=1, se=2, delta_assumed=1, zfinal=1.97)
+
+
+
+continuous(n=200, N=294, delta=0.15, se=0.07, delta_assumed=0.20, zfinal=1.99)
+
+
+survival(ek=300, E=377, observedHR=0.75, se_survival=0.164, futureHR=0.80, zfinalsurv=2.16)

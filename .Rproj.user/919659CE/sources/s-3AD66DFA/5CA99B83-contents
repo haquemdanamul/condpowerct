@@ -1,0 +1,104 @@
+---
+title: "calculates conditional power for stopping a trial for futility or stop for efficacy"
+author: "Mohammad Anamul Haque, Tomasz Burzykowski, Emmanuel Quinaux and Nahid Sultana."
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{README}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+# Motivation of the Package
+This package will calculate conditional power for stopping a trial for futility or stop for efficacy. It is possible to calculate the conditional power of the study to reject the null hypothesis given the current results obtained from gsDesign (Group sequential designs). gsDesign gives the opportunity to stop the study early for efficacy or stop for futility. Stop for efficacy means faster access to the new treatment during an interim analysis. On the other hand, stop for futility means unknown true effect is far away from the anticipated effect under the alternative hypothesis. As a result it saves time and financial resources and perhaps those resources can be reallocated to more productive undertakings. There is also ethical motivations as well. It might be inappropriate to ask patients to contribute their continued participation in trials in which the high-level outcome seems already clear. 
+
+The decision of stopping a trial with early rejection of either the null or the alternative hypothesis, if a given test statistic crosses a given stopping boundary. This strategy was executed in design phase and interim monitoring phase. An user has to first calculate the sample size for any types of endpoint: Continuous, Binary and Time-to-Event based on R-package gsDesign. Then using this results one can calculate the Conditional power, which is one of the tools, when computed over a range of alternatives, can be of guidance in
+deciding whether to continue the study given those available information. 
+
+It is important to note that conditional power at the beginning of the study before any data are collected is equal to the unconditional power. Unconditional power is the probability of achieving a significant result at a pre-specified alpha under a pre-specified alternative treatment effect as calculated at the beginning of a trial.
+
+# Methods
+
+From Jennison and Turnbull (2005) pages 205 to 208 and also Chang (2015) pages 70-71, the general upper one-sided conditional power at stage i for rejecting a null hypothesis about a parameter $\delta$ at the end of the study, given the observed test statistic, $Z_{i}$
+is computed as:
+$$
+P_{i}(\delta)=\Phi\left[\frac{Z_{i} \sqrt{I_{i}}-z_{\alpha} \sqrt{I_{\operatorname{Max}}}+\left(I_{\operatorname{Max}}-I_{i}\right) \delta}{\sqrt{\left(I_{\operatorname{Max}}-I_{i}\right)}}\right]
+$$
+The general lower one-sided conditional power at stage $i$ is computed as:
+$$
+P_{i}(\delta)=\Phi\left[\frac{-Z_{i} \sqrt{I_{i}}-z_{\alpha} \sqrt{I_{\operatorname{Max}}}-\left(I_{\operatorname{Max}}-I_{i}\right) \delta}{\sqrt{\left(I_{\operatorname{Max}}-I_{i}\right)}}\right]
+$$
+and the general two-sided conditional power at stage $i$ is computed as
+$$
+P_{i}(\delta)=\Phi\left[\frac{Z_{i} \sqrt{I_{i}}-z_{\alpha} \sqrt{I_{\operatorname{Max}}}+\left(I_{\operatorname{Max}}-I_{i}\right) \delta}{\sqrt{\left(I_{\operatorname{Max}}-I_{i}\right)}}\right]+ \Phi\left[\frac{-Z_{i} \sqrt{I_{i}}-z_{\alpha} \sqrt{I_{\operatorname{Max}}}-\left(I_{\operatorname{Max}}-I_{i}\right) \delta}{\sqrt{\left(I_{\operatorname{Max}}-I_{i}\right)}}\right]
+$$
+where, $\delta=$ Mean Difference (for Continuous endpoint) or Difference in proportion (for Binary endpoint) or
+log Hazard ratio (for time-to-event endpoint) at Design Stage under Alternative hypothesis (for Survival endpoint).
+
+$i=$ an interim stage at which the conditional power is computed $(i=1, \ldots, K-1)$
+
+Max = the stage at which the study is terminated and the final test computed
+
+$Z_{i}=$ the test statistic calculated from the observed data that has been collected up
+to stage $i$
+
+$I_{i}=$ the information level at stage $i$
+
+$I_{\operatorname{Max}}=$ the information level at the end of the study
+
+$Z_{\alpha}=$ the standard normal value for the test with a type I error rate of $\alpha .$ In practice, this value is taken when the design stage output is calculated and then the value will be the boundary crossing Z-value at final look.
+
+# Examples
+
+
+- Continuous Endpoint
+
+For illustration, suppose at design stage the total sample size is set 25. An interim
+look has been analyzed after enrolling 10 patients in the trial and the observed mean
+difference based on these 10 patients was found 1 with a standard error of 2. And the boundary value (Z-statistic) is 1.97 at final look
+for efficacy and futility boundary, assumed treatment effect for future/remaining patients is 1.
+
+```{r}
+library(conpowct)
+continuous(n=10, N=25, delta=1, se=2, delta_assumed=1, zfinal=1.97)
+```
+The conditional power is 0.06. That indicates, under the alternative hypothesis, the probability of rejecting null if the experiment goes to completion as planned has been reduced from 0.9 (design stage planned power) to approximately 0.06.
+
+- Binary Endpoint
+
+The same calculations can be done for binary endpoint. For example, the 
+
+"Sample in Interim" =200.
+"Total/cumulative Sample in Final" =294 .
+"Observed Difference in Proportion at Interim to calculate Test Statistic" =0.15
+"Standard Error for Difference of Proportion" =0.07
+"Final Look Z Statistic value which was used in Design Stage "=1.99
+"Assumed Proportion difference for Remaining Patients" =0.20
+
+
+```{r}
+library(conpowct)
+continuous(n=200, N=294, delta=0.15, se=0.07, delta_assumed=0.20, zfinal=1.99)
+
+```
+The conditional power is found 0.94 for this example data.
+
+- Time-to-event Endpoint
+
+Let the parameters are as follows:
+
+"Number of Events Observed at Interim"=300
+"Number of Events calculated at Design Stage for Final Analysis"=377
+"Observed Hazard Ratio at Interim"=0.75
+"Standard Error of log(Hazard Ratio)"=0.164
+"Final Look Z Statistic value which was used in Design Stage"=2.16
+"Assumed Hazard Ratio for Future Patients"=0.80
+
+Note that, while calculating the conditional power, the formula we used for Z_i =log(HR)/standard error of log(HR)= log(0.75)/0.164=-1.75
+
+```{r}
+survival(ek=300, E=377, observedHR=0.75, se_survival=0.164, futureHR=0.80, zfinalsurv=2.16)
+```
+So, with those values for the future patients hazard ratio 0.80, the conditional power will be 0.26.

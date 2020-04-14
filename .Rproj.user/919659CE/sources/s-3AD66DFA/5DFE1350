@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1586847458897.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "5DFE1350",
+    "lastKnownWriteTime" : 1586844615,
+    "last_content_update" : 1586844615,
+    "path" : "~/condpowerct/R/conpower.R",
+    "project_path" : "R/conpower.R",
+    "properties" : {
+        "cursorPosition" : "56,72",
+        "scrollLine" : "38"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
