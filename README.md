@@ -1,8 +1,8 @@
-Useful information:
-library(devtools)
-devtools::install_github("haquemdanamul/cpct")
-library(condpowerct) 
-to see the inside function write [?continuous()] [?survival()]. 
+Useful information for running the package####
+library(devtools)  #####
+devtools::install_github("haquemdanamul/cpct")  ######
+library(condpowerct) ######
+to see the inside function write [?continuous()] [?survival()]. ###
 -----------------------------------------------------------------------------------------------------
 This package will calculate conditional power for stopping a trial for futility or stop for efficacy. 
 It is possible to calculate the conditional power of the study to reject the null hypothesis given the 
