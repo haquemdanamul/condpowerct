@@ -61,7 +61,7 @@ difference based on these 10 patients was found 1 with a standard error of 2. An
 for efficacy and futility boundary, assumed treatment effect for future/remaining patients is 1.
 
 ```{r}
-library(conpowct)
+library(condpowerct)
 continuous(n=10, N=25, delta=1, se=2, delta_assumed=1, zfinal=1.97)
 ```
 The conditional power is 0.06. That indicates, under the alternative hypothesis, the probability of rejecting null if the experiment goes to completion as planned has been reduced from 0.9 (design stage planned power) to approximately 0.06.
@@ -79,7 +79,7 @@ The same calculations can be done for binary endpoint. For example, the
 
 
 ```{r}
-library(conpowct)
+library(condpowerct)
 continuous(n=200, N=294, delta=0.15, se=0.07, delta_assumed=0.20, zfinal=1.99)
 
 ```
@@ -99,6 +99,7 @@ Let the parameters are as follows:
 Note that, while calculating the conditional power, the formula we used for Z_i =log(HR)/standard error of log(HR)= log(0.75)/0.164=-1.75
 
 ```{r}
+library(condpowerct)
 survival(ek=300, E=377, observedHR=0.75, se_survival=0.164, futureHR=0.80, zfinalsurv=2.16)
 ```
 So, with those values for the future patients hazard ratio 0.80, the conditional power will be 0.26.
