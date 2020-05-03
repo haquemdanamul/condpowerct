@@ -1,8 +1,4 @@
-Useful information for running the package####
-library(devtools)  #####
-devtools::install_github("haquemdanamul/cpct")  ######
-library(condpowerct) ######
-to see the inside function write [?continuous()] [?survival()]. ###
+Useful information for running the package is here [package](https://rdrr.io/github/haquemdanamul/condpowerct/)
 -----------------------------------------------------------------------------------------------------
 The decision of stopping a trial with early rejection of either the null or the alternative hypothesis, 
 if a given test statistic crosses a given stopping boundary. This strategy was executed in design phase 
@@ -18,7 +14,7 @@ There is also ethical motivations as well. It might be inappropriate to ask pati
 continued participation in trials in which the high-level outcome seems already clear.
 
 As a guideline, an user has to first calculate the sample size for any types of endpoint: Continuous, Binary
-and Time-to-Event based on R-package [gsDesign](gsDesign). Then using this results one can calculate the Conditional power,
+and Time-to-Event based on R-package [gsDesign](https://rpubs.com/kaz_yos/gsDesign). Then using this results one can calculate the Conditional power,
 which is one of the tools, when computed over a range of alternatives, can be of guidance in deciding whether 
 to continue the study given those available information. 
 
