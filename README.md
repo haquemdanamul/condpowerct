@@ -1,4 +1,6 @@
-Useful information for running the package is here [package](https://rdrr.io/github/haquemdanamul/condpowerct/)
+Useful information for running the package is here [package](https://rdrr.io/github/haquemdanamul/condpowerct/).
+Please also visit the following shiny app link to calculate the sample size and other parameters for 
+design stage and interim stage. [shinyapp link](https://haquemdanamul.shinyapps.io/update_session/)
 -----------------------------------------------------------------------------------------------------
 The decision of stopping a trial with early rejection of either the null or the alternative hypothesis, 
 if a given test statistic crosses a given stopping boundary. This strategy was executed in design phase 
@@ -22,6 +24,3 @@ It is important to note that conditional power at the beginning of the study bef
 collected is equal to the unconditional power. Unconditional power is the probability of achieving 
 a significant result at a pre-specified alpha under a pre-specified alternative treatment effect as
 calculated at the beginning of a trial.
-
-Please also visit the following shiny app link to calculate the sample size and other parameters for 
-design stage and interim stage. [shinyapp link](https://haquemdanamul.shinyapps.io/update_session/)
