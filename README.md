@@ -18,7 +18,7 @@ There is also ethical motivations as well. It might be inappropriate to ask pati
 continued participation in trials in which the high-level outcome seems already clear.
 
 As a guideline, an user has to first calculate the sample size for any types of endpoint: Continuous, Binary
-and Time-to-Event based on R-package gsDesign. Then using this results one can calculate the Conditional power,
+and Time-to-Event based on R-package [gsDesign](gsDesign). Then using this results one can calculate the Conditional power,
 which is one of the tools, when computed over a range of alternatives, can be of guidance in deciding whether 
 to continue the study given those available information. 
 
